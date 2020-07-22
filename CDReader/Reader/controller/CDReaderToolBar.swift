@@ -127,9 +127,9 @@ class CDReaderToolBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadRecord(record:CDRecordModel){
-        processSlider.maximumValue = Float(record.chapterTotalCount)
-        processSlider.value = Float(record.chapterIndex)
+    func updateProcess(){
+        processSlider.maximumValue = Float(CDReaderManager.shared.readModel.chaptersArr.count)
+        processSlider.value = Float(CDReaderManager.shared.readModel.chapterIndex)
 
     }
     //更改亮度
@@ -170,13 +170,13 @@ class CDReaderToolBar: UIView {
     @objc private func onThemeClick(_ sender:UIButton){
         let index = sender.tag - themeTag
         let color = themeColorArr[index]
-        if CDReaderConfig.shared.theme == color{
+        if CDReaderManager.shared.config.theme == color{
             return
         }
-        CDReaderConfig.shared.theme = color
-        CDReaderConfig.shared.fontColor = color == night ? .white : .black
+        CDReaderManager.shared.config.theme = color
+        CDReaderManager.shared.config.fontColor = color == night ? .white : .black
         updateTheme()
-        CDReaderConfig.updateLocalConfig(conflg: CDReaderConfig.shared)
+        CDReaderConfig.updateLocalConfig(conflg: CDReaderManager.shared.config)
         NotificationCenter.default.post(name: NSNotification.Name("changeTheme"), object: color)
         
 
@@ -184,7 +184,7 @@ class CDReaderToolBar: UIView {
     
     //更改字体
     @objc private func onFontClick(_ sender:UIButton){
-        var fontSize = CDReaderConfig.shared.fontSize!
+        var fontSize = CDReaderManager.shared.config.fontSize!
         
         if sender.tag - fontTag == 0 { //减小字体
             if fontSize <= MinFont {
@@ -201,26 +201,26 @@ class CDReaderToolBar: UIView {
             }
             
         }
-        CDReaderConfig.shared.fontSize = fontSize
-        CDReaderConfig.updateLocalConfig(conflg: CDReaderConfig.shared)
+        CDReaderManager.shared.config.fontSize = fontSize
+        CDReaderConfig.updateLocalConfig(conflg: CDReaderManager.shared.config)
         delegate.onDidChangeFont()
 
     }
     
     func updateTheme(){
-        let fontColor:UIColor = CDReaderConfig.shared.fontColor
+        let fontColor:UIColor = CDReaderManager.shared.config.fontColor
         //
-        self.backgroundColor = CDReaderConfig.shared.theme
+        self.backgroundColor = CDReaderManager.shared.config.theme
         //
         
         var effectView = self.viewWithTag(1000) as? UIVisualEffectView
         if effectView != nil {
             effectView?.removeFromSuperview()
         }
-        let blurEffect = UIBlurEffect(style: CDReaderConfig.shared.theme == night ? .light : .dark)
+        let blurEffect = UIBlurEffect(style: CDReaderManager.shared.config.theme == night ? .light : .dark)
         effectView = UIVisualEffectView(effect: blurEffect)
         effectView!.frame = self.bounds
-        effectView?.alpha = CDReaderConfig.shared.theme == night ? 0.3 : 0.1
+        effectView?.alpha = CDReaderManager.shared.config.theme == night ? 0.3 : 0.1
         self.addSubview(effectView!)
         self.sendSubviewToBack(effectView!)
         
@@ -233,7 +233,7 @@ class CDReaderToolBar: UIView {
         //
         for i in 0..<themeColorArr.count {
             let itemBtn = self.viewWithTag(themeTag + i) as! UIButton
-            if CDReaderConfig.shared.theme == themeColorArr[i] {
+            if CDReaderManager.shared.config.theme == themeColorArr[i] {
                 itemBtn.layer.borderColor = themeBorderColorArr[i].cgColor
                 itemBtn.layer.borderWidth = 2
             }else{
@@ -244,18 +244,18 @@ class CDReaderToolBar: UIView {
         
         //
         let chapterBtn = self.viewWithTag(chapterTag) as! UIButton
-        let image = CDReaderConfig.shared.theme == night ? "目录-白":"目录-黑"
+        let image = CDReaderManager.shared.config.theme == night ? "目录-白":"目录-黑"
         chapterBtn.setImage(UIImage(named: image), for: .normal)
         //
 
-        let fontImageArr = [CDReaderConfig.shared.theme == night ? "字体-白-小":"字体-黑-小",
-                            CDReaderConfig.shared.theme == night ? "字体-白-大":"字体-黑-大"]
+        let fontImageArr = [CDReaderManager.shared.config.theme == night ? "字体-白-小":"字体-黑-小",
+                            CDReaderManager.shared.config.theme == night ? "字体-白-大":"字体-黑-大"]
         for i in 0..<fontImageArr.count {
             let fontBtn = self.viewWithTag(fontTag + i) as! UIButton
             fontBtn.setImage(UIImage(named: fontImageArr[i]), for: .normal)
         }
         
-        let sliderImage = CDReaderConfig.shared.theme == night ? "slider-白": "slider-黑"
+        let sliderImage = CDReaderManager.shared.config.theme == night ? "slider-白": "slider-黑"
         let lightSlider = self.viewWithTag(changeLightTag) as! UISlider
         lightSlider.setThumbImage(UIImage(named: sliderImage), for: .normal)
         processSlider.setThumbImage(UIImage(named:sliderImage), for: .normal)

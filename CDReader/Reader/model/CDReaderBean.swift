@@ -26,34 +26,59 @@ class CDReaderModel: NSObject,NSCoding {
     public var resourceUrl:URL! //小说路径
     public var name:String!    //小说名
     public var gcontent:String! //小说内容
-    public var chaptersArr:[CDChapterModel] = []  //小说章节
-    public var record:CDRecordModel!
-    
+    @objc dynamic var chaptersArr:[CDChapterModel] = []  //小说章节
+    public var chapterModel:CDChapterModel! //小说当前章节chapterModel = chaptersArr[chapterIndex]
+    public var pageIndex:Int = 0 //当前阅读的页数
+    public var chapterIndex:Int = 0 //当前阅读的章节数
+    private var chapterThread:Thread!
     init(content:String) {
         super.init()
         gcontent = content
-        var charpterArr:[CDChapterModel] = []
-        CDReaderUtilites.separateChapter(&charpterArr, content: content)
-        chaptersArr = charpterArr
-        record = CDRecordModel()
-        record.chapterModel = chaptersArr.first
-        record.chapterTotalCount = chaptersArr.count
+        self.addObserver(self, forKeyPath: "chaptersArr", options: [.new,.old], context: nil)
+        chapterThread = Thread(target: self, selector: #selector(separateChapter), object: nil)
+        chapterThread.name = "chapterThread"
+        chapterThread.start()
+
+        
     }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        let new = change?[NSKeyValueChangeKey.newKey] as? [CDChapterModel]
+        let old = change?[NSKeyValueChangeKey.oldKey] as? [CDChapterModel]
+        if old?.count == 0 && new?.count ?? 0 > 0 {
+            chapterModel = new?[0]
+            NotificationCenter.default.post(name: NSNotification.Name("TXTLoadToModel"), object: nil)
+        }
+        
+    }
+    
     func encode(with coder: NSCoder) {
         coder.encode(gcontent, forKey: "gcontent")
         coder.encode(chaptersArr, forKey: "chaptersArr")
-        coder.encode(record, forKey: "record")
+        coder.encode(pageIndex, forKey: "pageIndex")
+        coder.encode(chapterIndex, forKey: "chapterIndex")
         coder.encode(resourceUrl, forKey: "resource")
         coder.encode(name, forKey: "name")
     }
+    
+    /**
+    解析
+    */
     required init?(coder: NSCoder) {
         super.init()
         gcontent = coder.decodeObject(forKey: "gcontent") as? String
         name = coder.decodeObject(forKey: "name") as? String
         chaptersArr = coder.decodeObject(forKey: "chaptersArr") as! [CDChapterModel]
-        record = coder.decodeObject(forKey: "record") as? CDRecordModel
+        chapterIndex = coder.decodeInteger(forKey: "chapterIndex")
+        pageIndex = coder.decodeInteger(forKey: "pageIndex")
         resourceUrl = coder.decodeObject(forKey: "resource") as? URL
+        chapterModel = chaptersArr[chapterIndex]
     }
+    
+    /**
+    将资源更新保存到本地
+    */
     static func updateLocalModel(model:CDReaderModel,url:URL){
         let key = (url.path as NSString).lastPathComponent
         let data = NSMutableData()
@@ -63,11 +88,15 @@ class CDReaderModel: NSObject,NSCoding {
         UserDefaults.standard.set(data, forKey: key)
         
     }
+    
+    /**
+    从本地获取资源
+    */
     static func getLocalModel(url:URL) ->CDReaderModel{
         let key = (url.path as NSString).lastPathComponent
         let data = UserDefaults.standard.object(forKey: key) as? Data
         if data == nil {
-            let model = CDReaderModel(content: CDReaderUtilites.encodeUrl(url: url)!)
+            let model = CDReaderModel(content: encodeUrl(url: url)!)
             model.resourceUrl = url
             model.name = (key as NSString).deletingPathExtension
             CDReaderModel.updateLocalModel(model: model, url: url)
@@ -75,8 +104,13 @@ class CDReaderModel: NSObject,NSCoding {
         }
         let unarchive = NSKeyedUnarchiver(forReadingWith: data!)
         let model = unarchive.decodeObject(forKey: key) as! CDReaderModel
+        model.chapterModel = model.chaptersArr[model.chapterIndex]
         return model
     }
+    
+    /**
+    对章节分页
+    */
     public func getPageIndex(offset:NSInteger,chapterIndex:NSInteger) -> NSInteger {
         let chapter = chaptersArr[chapterIndex]
         let pageArr = chapter.pageArray
@@ -90,7 +124,58 @@ class CDReaderModel: NSObject,NSCoding {
         }
         return 0
     }
-
+    
+    /**
+     正则匹配解析目录
+     */
+    @objc func separateChapter() {
+        chaptersArr.removeAll()
+    
+        let parten = "\n第?[0-9一二三四五六七八九十百千]+[章].*"
+        guard let regex = try? NSRegularExpression(pattern: parten, options: []) else {
+            return
+        }
+        let nsContent = gcontent as NSString
+        let match = regex.matches(in: gcontent, options: .reportCompletion, range: NSRange(location: 0, length: gcontent.count))
+        if match.count != 0 {
+            var lastRange = NSRange(location: 0, length: 0)
+            
+            for idx in 0..<match.count {
+                let obj = match[idx]
+                let range = obj.range
+                let location = range.location
+                if idx == 0 {
+                    let model = CDChapterModel()
+                    model.title = "开始"
+                    let len = location
+                    model.content = nsContent.substring(with: NSRange(location: 0, length: len))
+                    self.chaptersArr.append(model)
+                }
+                
+                if idx > 0 {
+                    let model = CDChapterModel()
+                    model.title = nsContent.substring(with: lastRange)
+                    let len = location - lastRange.location
+                    model.content = nsContent.substring(with: NSRange(location: lastRange.location, length: len))
+                    self.chaptersArr.append(model)
+                }
+                if idx == match.count - 1 {
+                    let model = CDChapterModel()
+                    model.title = nsContent.substring(with: range)
+                    model.content = nsContent.substring(with: NSRange(location: location, length: nsContent.length - location))
+                    self.chaptersArr.append(model)
+                }
+                lastRange = range
+            }
+            self.chapterThread.cancel()
+        } else {
+            let model = CDChapterModel()
+            model.content = gcontent
+            self.chaptersArr.append(model)
+            chapterThread.cancel()
+        }
+        
+    }
 }
 
 
@@ -98,8 +183,6 @@ class CDChapterModel: NSObject,NSCopying,NSCoding {
     var pageArray:[Int] = []
     var title = String()
     var pageCount = Int()
-    var process = Double()
-    var chapterIndex = Int()
     private var gcontent:String?
     override init() {
         super.init()
@@ -125,7 +208,7 @@ class CDChapterModel: NSObject,NSCopying,NSCoding {
 
     
     func encode(with coder: NSCoder) {
-        coder.encode(gcontent, forKey: "gcontent")
+        coder.encode(content, forKey: "content")
         coder.encode(title, forKey: "title")
         coder.encode(pageCount, forKey: "pageCount")
         coder.encode(pageArray, forKey: "pageArray")
@@ -133,7 +216,7 @@ class CDChapterModel: NSObject,NSCopying,NSCoding {
     
     required init?(coder: NSCoder) {
         super.init()
-        gcontent = coder.decodeObject(forKey: "gcontent") as? String
+        content = coder.decodeObject(forKey: "content") as? String
         title = coder.decodeObject(forKey: "title") as! String
         pageCount = coder.decodeInteger(forKey: "pageCount")
         pageArray = coder.decodeObject(forKey: "pageArray") as! [Int]
@@ -147,7 +230,7 @@ class CDChapterModel: NSObject,NSCopying,NSCoding {
     func paginate(bounds:CGRect) {
         pageArray.removeAll()
         let attrString = NSMutableAttributedString(string: gcontent!)
-        let attribute = CDReaderUtilites.parserAttribute(config: CDReaderConfig.shared)
+        let attribute = parserAttribute()
         attrString.setAttributes(attribute, range: NSRange(location: 0, length: attrString.length))
         let frameSetter = CTFramesetterCreateWithAttributedString(attrString)
         let path = CGPath.init(rect: bounds, transform: nil)
@@ -206,36 +289,65 @@ class CDChapterModel: NSObject,NSCopying,NSCoding {
     
 }
 
-class CDRecordModel: NSObject,NSCopying,NSCoding {
-    
-    var chapterModel:CDChapterModel!;  //当前阅读的章节
-    var pageIndex  = Int() //当前阅读的页数
-    var chapterIndex = Int() //当前阅读的章节数
-    var chapterTotalCount = Int()//总章节数
+let day = UIColor(red: 246/255.0, green: 245/255.0, blue: 249/255.0, alpha: 1.0)
+let night = UIColor.black
+let eye = UIColor(red: 193/255.0, green: 238/255.0, blue: 196/255.0, alpha: 1.0)
+
+let dayBorder = UIColor(red: 62/255.0, green: 137/255.0, blue: 237/255.0, alpha: 1.0)
+let nightBorder = UIColor(red: 62/255.0, green: 137/255.0, blue: 237/255.0, alpha: 1.0)
+let eyeBorder = UIColor(red: 64/255.0, green: 153/255.0, blue: 44/255.0, alpha: 1.0)
+
+let MaxFont:Float = 40
+let MinFont:Float = 14
+let LineSpace:CGFloat = 10
+class CDReaderConfig: NSObject,NSCoding {
+    var lineSpace:CGFloat! //行宽
+    var theme:UIColor!     //背景色
+    var fontColor:UIColor! //字体色
+    var fontSize:Float!    //字体大小
     
     override init() {
         super.init()
+        let data = UserDefaults.standard.object(forKey: "CDReaderConfig") as? Data
+        if data != nil {
+            let unchive = NSKeyedUnarchiver(forReadingWith: data!)
+            let config = unchive.decodeObject(forKey: "CDReaderConfig") as! CDReaderConfig
+            lineSpace = config.lineSpace
+            fontSize = config.fontSize
+            fontColor = config.fontColor
+            theme = config.theme
+            
+        } else {
+            //初始化 默认
+            lineSpace = LineSpace
+            fontSize = MinFont
+            fontColor = night
+            theme = day
+            CDReaderConfig.updateLocalConfig(conflg: self)
+        }
+        
     }
-    func copy(with zone: NSZone? = nil) -> Any {
-        let model = self.copy(with: zone) as! CDRecordModel
-        model.chapterModel = chapterModel.copy() as? CDChapterModel
-        model.pageIndex = pageIndex
-        model.chapterIndex = chapterIndex
-        return model
+    
+    static func updateLocalConfig(conflg:CDReaderConfig) {
+        let data = NSMutableData()
+        let archive = NSKeyedArchiver(forWritingWith: data)
+        archive.encode(conflg, forKey: "CDReaderConfig")
+        archive.finishEncoding()
+        UserDefaults.standard.set(data, forKey: "CDReaderConfig")
     }
     
     func encode(with coder: NSCoder) {
-        coder.encode(chapterModel, forKey: "currentChapterModel")
-        coder.encode(pageIndex, forKey: "currentPageIndex")
-        coder.encode(chapterIndex, forKey: "currentChapterIndex")
-        coder.encode(chapterTotalCount, forKey: "chapterTotalCount")
+        coder.encode(fontSize, forKey: "fontSize")
+        coder.encode(lineSpace, forKey: "lineSpace")
+        coder.encode(fontColor, forKey: "fontColor")
+        coder.encode(theme, forKey: "theme")
     }
     
     required init?(coder: NSCoder) {
         super.init()
-        chapterIndex = coder.decodeInteger(forKey: "currentChapterIndex")
-        pageIndex = coder.decodeInteger(forKey: "currentPageIndex")
-        chapterTotalCount = coder.decodeInteger(forKey: "chapterTotalCount")
-        chapterModel = coder.decodeObject(forKey: "currentChapterModel") as? CDChapterModel
+        fontColor = coder.decodeObject(forKey: "fontColor") as? UIColor
+        fontSize = coder.decodeObject(forKey: "fontSize") as? Float
+        lineSpace = coder.decodeObject(forKey: "lineSpace") as? CGFloat
+        theme = coder.decodeObject(forKey: "theme") as? UIColor
     }
 }

@@ -12,9 +12,8 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     
     
     
-    public var gresource:String!
+    public var resource:String!
     
-    private var greaderModel:CDReaderModel!
     private var greadView:CDReaderViewController!  //当前视图
     private var toolsView:CDReaderToolBar!
     private var _hiddenNavBar:Bool = false
@@ -30,21 +29,23 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     }
     override func viewWillDisappear(_ animated: Bool) {
         UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "上导航栏-背景@2x"), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "nav"), for: .default)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addChild(self.pageVC)
-        DispatchQueue.global().async {
-            self.greaderModel = CDReaderModel.getLocalModel(url: URL(fileURLWithPath: self.gresource))
+        CDReaderManager.shared.laodFile(filePath: self.resource)
 
-            DispatchQueue.main.async {
-                self.pageVC.setViewControllers([self.readViewChapter(chapter: self.greaderModel.record.chapterIndex, page: self.greaderModel.record.pageIndex)], direction: .forward, animated: true, completion: nil)
-                self._chapterIndex = self.greaderModel.record.chapterIndex
-                self._pageIndex = self.greaderModel.record.pageIndex
-                self.toolsView.loadRecord(record: self.greaderModel.record)
-            }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("TXTLoadToModel"), object: nil, queue: OperationQueue.main) { (noti) in
+            self.pageVC.setViewControllers([self.readViewChapter(chapter: CDReaderManager.shared.readModel.chapterIndex,
+                                                                 page: CDReaderManager.shared.readModel.pageIndex)],
+                                           direction: .forward,
+                                           animated: true,
+                                           completion: nil)
+            self._chapterIndex = CDReaderManager.shared.readModel.chapterIndex
+            self._pageIndex = CDReaderManager.shared.readModel.pageIndex
+            self.toolsView.updateProcess()
         }
         let height:CGFloat = iPhoneX ? 300 : 220
         self.toolsView = CDReaderToolBar(frame: CGRect(x: 0, y: CDSCREEN_HEIGTH - height, width: CDSCREEN_WIDTH, height: height))
@@ -59,10 +60,10 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
         
         
         self.onChangeTheme()
-        self.hiddenNavBar(nil)
+        self.hiddenNavBar()
         
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hiddenNavBar(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hiddenNavBar))
         self.pageVC.view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onChangeTheme), name: NSNotification.Name("changeTheme"), object: nil)
@@ -88,12 +89,13 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     @objc private func backButtonClick(){
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc private func onChangeTheme(){
-        self.view.backgroundColor = CDReaderConfig.shared.theme
-        self.pageVC.view.backgroundColor = CDReaderConfig.shared.theme
+        self.view.backgroundColor = CDReaderManager.shared.config.theme
+        self.pageVC.view.backgroundColor = CDReaderManager.shared.config.theme
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        self.navigationController?.navigationBar.barTintColor = CDReaderConfig.shared.theme
-        if CDReaderConfig.shared.theme == night {
+        self.navigationController?.navigationBar.barTintColor = CDReaderManager.shared.config.theme
+        if CDReaderManager.shared.config.theme == night {
             UIApplication.shared.statusBarStyle = .lightContent
         } else {
            UIApplication.shared.statusBarStyle = .darkContent
@@ -101,15 +103,23 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     }
     
     func onDidChangeFont() {
-        greaderModel.record.chapterModel.updateFont()
+        let currentChapter = CDReaderManager.shared.readModel.chaptersArr[CDReaderManager.shared.readModel.chapterIndex]
+        currentChapter.updateFont()
 
-        let page = greaderModel.record.pageIndex > (greaderModel.record.chapterModel.pageCount - 1) ? greaderModel.record.chapterModel.pageCount - 1 :greaderModel.record.pageIndex
-        pageVC.setViewControllers([readViewChapter(chapter: greaderModel.record.chapterIndex, page: page)], direction: .forward, animated: false, completion: nil)
-        updateReadModel(chapterIndex: greaderModel.record.chapterIndex, page: page)
+        let page = CDReaderManager.shared.readModel.pageIndex > (currentChapter.pageCount - 1) ?
+            currentChapter.pageCount - 1 :
+            CDReaderManager.shared.readModel.pageIndex
+        
+        pageVC.setViewControllers([readViewChapter(chapter: CDReaderManager.shared.readModel.chapterIndex,
+                                                   page: page)],
+                                  direction: .forward,
+                                  animated: false,
+                                  completion: nil)
+        updateReadModel(chapterIndex: CDReaderManager.shared.readModel.chapterIndex, page: page)
 
     }
     
-    @objc func hiddenNavBar(_ tap:UITapGestureRecognizer?){
+    @objc func hiddenNavBar(){
         
         _hiddenNavBar = !_hiddenNavBar
         self.toolsView.isHidden = _hiddenNavBar
@@ -119,10 +129,9 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     
     //CDReaderToolBarDelegate
     func onDidSelectedChapter() {
-        hiddenNavBar(nil)
+        hiddenNavBar()
         let chapterVC = CDChapterViewController()
         chapterVC.myDelegate = self
-        chapterVC.readModel = greaderModel
         chapterVC.modalPresentationStyle = .popover
         self.present(chapterVC, animated: true, completion: nil)
     }
@@ -140,25 +149,25 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     
     //
     func readViewChapter(chapter:Int,page:Int) -> CDReaderViewController {
-        if greaderModel.record.chapterIndex != chapter {
+        if CDReaderManager.shared.readModel.chapterIndex != chapter {
             updateReadModel(chapterIndex: chapter, page: page)
-            greaderModel.record.chapterModel.updateFont()
+            CDReaderManager.shared.readModel.chapterModel.updateFont()
         }
         greadView = CDReaderViewController()
-        greadView.recordModel = greaderModel.record
-        greadView.content = greaderModel.chaptersArr[chapter].stringOfPage(index: page)
+        greadView.content = CDReaderManager.shared.readModel.chaptersArr[chapter].stringOfPage(index: page)
         greadView.hiddenNavBar = _hiddenNavBar
+        greadView.pageIndex = CDReaderManager.shared.readModel.pageIndex
+        greadView.chapterIndex = CDReaderManager.shared.readModel.chapterIndex
         return greadView
     }
     
     func updateReadModel(chapterIndex:Int,page:Int) {
         _chapterIndex = chapterIndex
         _pageIndex = page
-        greaderModel.record.chapterModel = greaderModel.chaptersArr[chapterIndex]
-        greaderModel.record.chapterIndex = chapterIndex
-        greaderModel.record.pageIndex = page
-        CDReaderModel.updateLocalModel(model: greaderModel, url: URL(fileURLWithPath: gresource))
-        self.toolsView.loadRecord(record: greaderModel.record)
+        CDReaderManager.shared.readModel.chapterIndex = chapterIndex
+        CDReaderManager.shared.readModel.pageIndex = page
+        CDReaderModel.updateLocalModel(model: CDReaderManager.shared.readModel, url: URL(fileURLWithPath: resource))
+        self.toolsView.updateProcess()
 
     }
     
@@ -167,8 +176,8 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
         if !completed {
             let readView = previousViewControllers.first as! CDReaderViewController
             greadView = readView
-            _pageIndex = readView.recordModel.pageIndex
-            _chapterIndex = readView.recordModel.chapterIndex
+            _pageIndex = readView.pageIndex
+            _chapterIndex = readView.chapterIndex
             
         } else {
            updateReadModel(chapterIndex: _chapterIndex, page: _pageIndex)
@@ -181,7 +190,7 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if !_hiddenNavBar  { hiddenNavBar(nil)}
+        if !_hiddenNavBar  { hiddenNavBar()}
         _changeChapterIndex = _chapterIndex
         _changePageIndex = _pageIndex
         if _changeChapterIndex == 0 && _changeChapterIndex == 0 {
@@ -191,7 +200,7 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
         //页数为0章节-1
         if _changePageIndex == 0 {
             _changeChapterIndex -= 1
-            _changePageIndex = greaderModel.chaptersArr[_changeChapterIndex].pageCount - 1
+            _changePageIndex = CDReaderManager.shared.readModel.chaptersArr[_changeChapterIndex].pageCount - 1
         } else {
             _changePageIndex -= 1
         }
@@ -199,16 +208,16 @@ class CDReaderPageViewController: UIViewController,CDReaderToolBarDelegate, UIPa
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if !_hiddenNavBar { hiddenNavBar(nil)}
+        if !_hiddenNavBar { hiddenNavBar()}
         _changeChapterIndex = _chapterIndex
         _changePageIndex = _pageIndex
-        if _changePageIndex == greaderModel.chaptersArr.last!.pageCount - 1 &&
-            _changeChapterIndex == greaderModel.chaptersArr.count - 1
+        if _changePageIndex == CDReaderManager.shared.readModel.chaptersArr.last!.pageCount - 1 &&
+            _changeChapterIndex == CDReaderManager.shared.readModel.chaptersArr.count - 1
             {
             return nil
         }
         
-        if _changePageIndex == greaderModel.chaptersArr[_changeChapterIndex].pageCount - 1 {
+        if _changePageIndex == CDReaderManager.shared.readModel.chaptersArr[_changeChapterIndex].pageCount - 1 {
             _changeChapterIndex += 1
             _changePageIndex = 0
         } else {

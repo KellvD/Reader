@@ -7,29 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		738A5D6524BD965900F140AB /* CDReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D5A24BD965900F140AB /* CDReaderViewController.swift */; };
-		738A5D6624BD965900F140AB /* CDReaderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D5B24BD965900F140AB /* CDReaderPageViewController.swift */; };
-		738A5D6824BD965900F140AB /* CDChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D5D24BD965900F140AB /* CDChapterViewController.swift */; };
-		738A5D6924BD965900F140AB /* CDReaderBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D5F24BD965900F140AB /* CDReaderBean.swift */; };
-		738A5D6A24BD965900F140AB /* CDReaderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D6024BD965900F140AB /* CDReaderConfig.swift */; };
-		738A5D6B24BD965900F140AB /* CDReaderUtilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D6124BD965900F140AB /* CDReaderUtilites.swift */; };
-		738A5D6D24BD965900F140AB /* CDReaderToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A5D6424BD965900F140AB /* CDReaderToolBar.swift */; };
 		738A5D7024BD99B200F140AB /* 最强特种兵王.txt in Resources */ = {isa = PBXBuildFile; fileRef = 738A5D6E24BD99B200F140AB /* 最强特种兵王.txt */; };
 		738A5D7124BD99B200F140AB /* 黑道特种兵 2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 738A5D6F24BD99B200F140AB /* 黑道特种兵 2.txt */; };
-		73CF236624BE93B100B9D8F1 /* 目录-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235A24BE93B000B9D8F1 /* 目录-黑@2x.png */; };
-		73CF236724BE93B100B9D8F1 /* 目录-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235B24BE93B000B9D8F1 /* 目录-白@2x.png */; };
-		73CF236824BE93B100B9D8F1 /* 字体-白-大@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235C24BE93B100B9D8F1 /* 字体-白-大@2x.png */; };
-		73CF236924BE93B100B9D8F1 /* 亮度-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235D24BE93B100B9D8F1 /* 亮度-黑@2x.png */; };
-		73CF236A24BE93B100B9D8F1 /* 字体-白-小@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235E24BE93B100B9D8F1 /* 字体-白-小@2x.png */; };
-		73CF236B24BE93B100B9D8F1 /* 字体-黑-小@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF235F24BE93B100B9D8F1 /* 字体-黑-小@2x.png */; };
-		73CF236C24BE93B100B9D8F1 /* 左箭头-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236024BE93B100B9D8F1 /* 左箭头-白@2x.png */; };
-		73CF236D24BE93B100B9D8F1 /* 左箭头-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236124BE93B100B9D8F1 /* 左箭头-黑@2x.png */; };
-		73CF236E24BE93B100B9D8F1 /* 右箭头-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236224BE93B100B9D8F1 /* 右箭头-黑@2x.png */; };
-		73CF236F24BE93B100B9D8F1 /* 字体-黑-大@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236324BE93B100B9D8F1 /* 字体-黑-大@2x.png */; };
-		73CF237024BE93B100B9D8F1 /* 亮度-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236424BE93B100B9D8F1 /* 亮度-白@2x.png */; };
-		73CF237124BE93B100B9D8F1 /* 右箭头-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF236524BE93B100B9D8F1 /* 右箭头-白@2x.png */; };
-		73CF237424BF0B9D00B9D8F1 /* slider-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF237224BF0B9D00B9D8F1 /* slider-白@2x.png */; };
-		73CF237524BF0B9D00B9D8F1 /* slider-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73CF237324BF0B9D00B9D8F1 /* slider-黑@2x.png */; };
 		73D4AABD24BF1A2A00990F2A /* 上导航栏-背景@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D4AABC24BF1A2A00990F2A /* 上导航栏-背景@2x.png */; };
 		73DF3ED3248FABE800A6A032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF3ED2248FABE800A6A032 /* AppDelegate.swift */; };
 		73DF3ED5248FABE800A6A032 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF3ED4248FABE800A6A032 /* SceneDelegate.swift */; };
@@ -37,32 +16,32 @@
 		73DF3EDA248FABE800A6A032 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73DF3ED8248FABE800A6A032 /* Main.storyboard */; };
 		73DF3EDC248FABEE00A6A032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73DF3EDB248FABEE00A6A032 /* Assets.xcassets */; };
 		73DF3EDF248FABEE00A6A032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73DF3EDD248FABEE00A6A032 /* LaunchScreen.storyboard */; };
+		EF558FA224C87831002F43ED /* 字体-白-大@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8924C87831002F43ED /* 字体-白-大@2x.png */; };
+		EF558FA324C87831002F43ED /* slider-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8A24C87831002F43ED /* slider-黑@2x.png */; };
+		EF558FA424C87831002F43ED /* slider-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8B24C87831002F43ED /* slider-白@2x.png */; };
+		EF558FA524C87831002F43ED /* 字体-白-小@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8C24C87831002F43ED /* 字体-白-小@2x.png */; };
+		EF558FA624C87831002F43ED /* 字体 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8D24C87831002F43ED /* 字体 (1).png */; };
+		EF558FA724C87831002F43ED /* 右箭头-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8E24C87831002F43ED /* 右箭头-白@2x.png */; };
+		EF558FA824C87831002F43ED /* 右箭头-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F8F24C87831002F43ED /* 右箭头-黑@2x.png */; };
+		EF558FA924C87831002F43ED /* 左箭头-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9024C87831002F43ED /* 左箭头-黑@2x.png */; };
+		EF558FAA24C87831002F43ED /* 左箭头-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9124C87831002F43ED /* 左箭头-白@2x.png */; };
+		EF558FAB24C87831002F43ED /* 字体-黑-小@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9224C87831002F43ED /* 字体-黑-小@2x.png */; };
+		EF558FAC24C87831002F43ED /* 目录-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9324C87831002F43ED /* 目录-白@2x.png */; };
+		EF558FAD24C87831002F43ED /* 目录-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9424C87831002F43ED /* 目录-黑@2x.png */; };
+		EF558FAE24C87831002F43ED /* 亮度-白@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9524C87831002F43ED /* 亮度-白@2x.png */; };
+		EF558FAF24C87831002F43ED /* 亮度-黑@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9624C87831002F43ED /* 亮度-黑@2x.png */; };
+		EF558FB024C87831002F43ED /* 字体-黑-大@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF558F9724C87831002F43ED /* 字体-黑-大@2x.png */; };
+		EF558FB124C87831002F43ED /* CDReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558F9924C87831002F43ED /* CDReaderViewController.swift */; };
+		EF558FB224C87831002F43ED /* CDReaderPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558F9A24C87831002F43ED /* CDReaderPageViewController.swift */; };
+		EF558FB324C87831002F43ED /* CDReaderToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558F9B24C87831002F43ED /* CDReaderToolBar.swift */; };
+		EF558FB424C87831002F43ED /* CDChapterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558F9C24C87831002F43ED /* CDChapterViewController.swift */; };
+		EF558FB524C87831002F43ED /* CDReaderBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558F9E24C87831002F43ED /* CDReaderBean.swift */; };
+		EF558FB824C87831002F43ED /* CDReaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF558FA124C87831002F43ED /* CDReaderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		738A5D5A24BD965900F140AB /* CDReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderViewController.swift; sourceTree = "<group>"; };
-		738A5D5B24BD965900F140AB /* CDReaderPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderPageViewController.swift; sourceTree = "<group>"; };
-		738A5D5D24BD965900F140AB /* CDChapterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDChapterViewController.swift; sourceTree = "<group>"; };
-		738A5D5F24BD965900F140AB /* CDReaderBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderBean.swift; sourceTree = "<group>"; };
-		738A5D6024BD965900F140AB /* CDReaderConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderConfig.swift; sourceTree = "<group>"; };
-		738A5D6124BD965900F140AB /* CDReaderUtilites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderUtilites.swift; sourceTree = "<group>"; };
-		738A5D6424BD965900F140AB /* CDReaderToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderToolBar.swift; sourceTree = "<group>"; };
 		738A5D6E24BD99B200F140AB /* 最强特种兵王.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "最强特种兵王.txt"; sourceTree = "<group>"; };
 		738A5D6F24BD99B200F140AB /* 黑道特种兵 2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "黑道特种兵 2.txt"; sourceTree = "<group>"; };
-		73CF235A24BE93B000B9D8F1 /* 目录-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "目录-黑@2x.png"; sourceTree = "<group>"; };
-		73CF235B24BE93B000B9D8F1 /* 目录-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "目录-白@2x.png"; sourceTree = "<group>"; };
-		73CF235C24BE93B100B9D8F1 /* 字体-白-大@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-白-大@2x.png"; sourceTree = "<group>"; };
-		73CF235D24BE93B100B9D8F1 /* 亮度-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "亮度-黑@2x.png"; sourceTree = "<group>"; };
-		73CF235E24BE93B100B9D8F1 /* 字体-白-小@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-白-小@2x.png"; sourceTree = "<group>"; };
-		73CF235F24BE93B100B9D8F1 /* 字体-黑-小@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-黑-小@2x.png"; sourceTree = "<group>"; };
-		73CF236024BE93B100B9D8F1 /* 左箭头-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左箭头-白@2x.png"; sourceTree = "<group>"; };
-		73CF236124BE93B100B9D8F1 /* 左箭头-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左箭头-黑@2x.png"; sourceTree = "<group>"; };
-		73CF236224BE93B100B9D8F1 /* 右箭头-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "右箭头-黑@2x.png"; sourceTree = "<group>"; };
-		73CF236324BE93B100B9D8F1 /* 字体-黑-大@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-黑-大@2x.png"; sourceTree = "<group>"; };
-		73CF236424BE93B100B9D8F1 /* 亮度-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "亮度-白@2x.png"; sourceTree = "<group>"; };
-		73CF236524BE93B100B9D8F1 /* 右箭头-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "右箭头-白@2x.png"; sourceTree = "<group>"; };
-		73CF237224BF0B9D00B9D8F1 /* slider-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-白@2x.png"; sourceTree = "<group>"; };
-		73CF237324BF0B9D00B9D8F1 /* slider-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-黑@2x.png"; sourceTree = "<group>"; };
 		73D4AABC24BF1A2A00990F2A /* 上导航栏-背景@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上导航栏-背景@2x.png"; sourceTree = "<group>"; };
 		73DF3ECF248FABE800A6A032 /* CDReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73DF3ED2248FABE800A6A032 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +51,27 @@
 		73DF3EDB248FABEE00A6A032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73DF3EDE248FABEE00A6A032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73DF3EE0248FABEE00A6A032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF558F8924C87831002F43ED /* 字体-白-大@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-白-大@2x.png"; sourceTree = "<group>"; };
+		EF558F8A24C87831002F43ED /* slider-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-黑@2x.png"; sourceTree = "<group>"; };
+		EF558F8B24C87831002F43ED /* slider-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-白@2x.png"; sourceTree = "<group>"; };
+		EF558F8C24C87831002F43ED /* 字体-白-小@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-白-小@2x.png"; sourceTree = "<group>"; };
+		EF558F8D24C87831002F43ED /* 字体 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体 (1).png"; sourceTree = "<group>"; };
+		EF558F8E24C87831002F43ED /* 右箭头-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "右箭头-白@2x.png"; sourceTree = "<group>"; };
+		EF558F8F24C87831002F43ED /* 右箭头-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "右箭头-黑@2x.png"; sourceTree = "<group>"; };
+		EF558F9024C87831002F43ED /* 左箭头-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左箭头-黑@2x.png"; sourceTree = "<group>"; };
+		EF558F9124C87831002F43ED /* 左箭头-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "左箭头-白@2x.png"; sourceTree = "<group>"; };
+		EF558F9224C87831002F43ED /* 字体-黑-小@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-黑-小@2x.png"; sourceTree = "<group>"; };
+		EF558F9324C87831002F43ED /* 目录-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "目录-白@2x.png"; sourceTree = "<group>"; };
+		EF558F9424C87831002F43ED /* 目录-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "目录-黑@2x.png"; sourceTree = "<group>"; };
+		EF558F9524C87831002F43ED /* 亮度-白@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "亮度-白@2x.png"; sourceTree = "<group>"; };
+		EF558F9624C87831002F43ED /* 亮度-黑@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "亮度-黑@2x.png"; sourceTree = "<group>"; };
+		EF558F9724C87831002F43ED /* 字体-黑-大@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字体-黑-大@2x.png"; sourceTree = "<group>"; };
+		EF558F9924C87831002F43ED /* CDReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderViewController.swift; sourceTree = "<group>"; };
+		EF558F9A24C87831002F43ED /* CDReaderPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderPageViewController.swift; sourceTree = "<group>"; };
+		EF558F9B24C87831002F43ED /* CDReaderToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderToolBar.swift; sourceTree = "<group>"; };
+		EF558F9C24C87831002F43ED /* CDChapterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDChapterViewController.swift; sourceTree = "<group>"; };
+		EF558F9E24C87831002F43ED /* CDReaderBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderBean.swift; sourceTree = "<group>"; };
+		EF558FA124C87831002F43ED /* CDReaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDReaderManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,58 +85,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		738A5D5824BD965900F140AB /* Reader */ = {
-			isa = PBXGroup;
-			children = (
-				73CF235924BE917600B9D8F1 /* image */,
-				738A5D5924BD965900F140AB /* controller */,
-				738A5D5E24BD965900F140AB /* model */,
-			);
-			path = Reader;
-			sourceTree = "<group>";
-		};
-		738A5D5924BD965900F140AB /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				738A5D5A24BD965900F140AB /* CDReaderViewController.swift */,
-				738A5D5B24BD965900F140AB /* CDReaderPageViewController.swift */,
-				738A5D5D24BD965900F140AB /* CDChapterViewController.swift */,
-				738A5D6424BD965900F140AB /* CDReaderToolBar.swift */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		738A5D5E24BD965900F140AB /* model */ = {
-			isa = PBXGroup;
-			children = (
-				738A5D5F24BD965900F140AB /* CDReaderBean.swift */,
-				738A5D6024BD965900F140AB /* CDReaderConfig.swift */,
-				738A5D6124BD965900F140AB /* CDReaderUtilites.swift */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		73CF235924BE917600B9D8F1 /* image */ = {
-			isa = PBXGroup;
-			children = (
-				73CF237224BF0B9D00B9D8F1 /* slider-白@2x.png */,
-				73CF237324BF0B9D00B9D8F1 /* slider-黑@2x.png */,
-				73CF236424BE93B100B9D8F1 /* 亮度-白@2x.png */,
-				73CF235D24BE93B100B9D8F1 /* 亮度-黑@2x.png */,
-				73CF235B24BE93B000B9D8F1 /* 目录-白@2x.png */,
-				73CF235A24BE93B000B9D8F1 /* 目录-黑@2x.png */,
-				73CF236524BE93B100B9D8F1 /* 右箭头-白@2x.png */,
-				73CF236224BE93B100B9D8F1 /* 右箭头-黑@2x.png */,
-				73CF235C24BE93B100B9D8F1 /* 字体-白-大@2x.png */,
-				73CF235E24BE93B100B9D8F1 /* 字体-白-小@2x.png */,
-				73CF236324BE93B100B9D8F1 /* 字体-黑-大@2x.png */,
-				73CF235F24BE93B100B9D8F1 /* 字体-黑-小@2x.png */,
-				73CF236024BE93B100B9D8F1 /* 左箭头-白@2x.png */,
-				73CF236124BE93B100B9D8F1 /* 左箭头-黑@2x.png */,
-			);
-			path = image;
-			sourceTree = "<group>";
-		};
 		73DF3EC6248FABE800A6A032 = {
 			isa = PBXGroup;
 			children = (
@@ -156,10 +104,10 @@
 		73DF3ED1248FABE800A6A032 /* CDReader */ = {
 			isa = PBXGroup;
 			children = (
+				EF558F8724C87831002F43ED /* Reader */,
 				73D4AABC24BF1A2A00990F2A /* 上导航栏-背景@2x.png */,
 				738A5D6F24BD99B200F140AB /* 黑道特种兵 2.txt */,
 				738A5D6E24BD99B200F140AB /* 最强特种兵王.txt */,
-				738A5D5824BD965900F140AB /* Reader */,
 				73DF3ED2248FABE800A6A032 /* AppDelegate.swift */,
 				73DF3ED4248FABE800A6A032 /* SceneDelegate.swift */,
 				73DF3ED6248FABE800A6A032 /* ViewController.swift */,
@@ -169,6 +117,58 @@
 				73DF3EE0248FABEE00A6A032 /* Info.plist */,
 			);
 			path = CDReader;
+			sourceTree = "<group>";
+		};
+		EF558F8724C87831002F43ED /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				EF558F8824C87831002F43ED /* image */,
+				EF558F9824C87831002F43ED /* controller */,
+				EF558F9D24C87831002F43ED /* model */,
+			);
+			path = Reader;
+			sourceTree = "<group>";
+		};
+		EF558F8824C87831002F43ED /* image */ = {
+			isa = PBXGroup;
+			children = (
+				EF558F8924C87831002F43ED /* 字体-白-大@2x.png */,
+				EF558F8A24C87831002F43ED /* slider-黑@2x.png */,
+				EF558F8B24C87831002F43ED /* slider-白@2x.png */,
+				EF558F8C24C87831002F43ED /* 字体-白-小@2x.png */,
+				EF558F8D24C87831002F43ED /* 字体 (1).png */,
+				EF558F8E24C87831002F43ED /* 右箭头-白@2x.png */,
+				EF558F8F24C87831002F43ED /* 右箭头-黑@2x.png */,
+				EF558F9024C87831002F43ED /* 左箭头-黑@2x.png */,
+				EF558F9124C87831002F43ED /* 左箭头-白@2x.png */,
+				EF558F9224C87831002F43ED /* 字体-黑-小@2x.png */,
+				EF558F9324C87831002F43ED /* 目录-白@2x.png */,
+				EF558F9424C87831002F43ED /* 目录-黑@2x.png */,
+				EF558F9524C87831002F43ED /* 亮度-白@2x.png */,
+				EF558F9624C87831002F43ED /* 亮度-黑@2x.png */,
+				EF558F9724C87831002F43ED /* 字体-黑-大@2x.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		EF558F9824C87831002F43ED /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				EF558F9924C87831002F43ED /* CDReaderViewController.swift */,
+				EF558F9A24C87831002F43ED /* CDReaderPageViewController.swift */,
+				EF558F9B24C87831002F43ED /* CDReaderToolBar.swift */,
+				EF558F9C24C87831002F43ED /* CDChapterViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		EF558F9D24C87831002F43ED /* model */ = {
+			isa = PBXGroup;
+			children = (
+				EF558F9E24C87831002F43ED /* CDReaderBean.swift */,
+				EF558FA124C87831002F43ED /* CDReaderManager.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,24 +230,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				738A5D7024BD99B200F140AB /* 最强特种兵王.txt in Resources */,
-				73CF236624BE93B100B9D8F1 /* 目录-黑@2x.png in Resources */,
-				73CF236824BE93B100B9D8F1 /* 字体-白-大@2x.png in Resources */,
-				73CF237424BF0B9D00B9D8F1 /* slider-白@2x.png in Resources */,
-				73CF237124BE93B100B9D8F1 /* 右箭头-白@2x.png in Resources */,
-				73CF236E24BE93B100B9D8F1 /* 右箭头-黑@2x.png in Resources */,
+				EF558FAD24C87831002F43ED /* 目录-黑@2x.png in Resources */,
+				EF558FAA24C87831002F43ED /* 左箭头-白@2x.png in Resources */,
+				EF558FA624C87831002F43ED /* 字体 (1).png in Resources */,
+				EF558FA224C87831002F43ED /* 字体-白-大@2x.png in Resources */,
+				EF558FAC24C87831002F43ED /* 目录-白@2x.png in Resources */,
 				73D4AABD24BF1A2A00990F2A /* 上导航栏-背景@2x.png in Resources */,
+				EF558FB024C87831002F43ED /* 字体-黑-大@2x.png in Resources */,
+				EF558FA824C87831002F43ED /* 右箭头-黑@2x.png in Resources */,
+				EF558FA424C87831002F43ED /* slider-白@2x.png in Resources */,
+				EF558FAE24C87831002F43ED /* 亮度-白@2x.png in Resources */,
+				EF558FA524C87831002F43ED /* 字体-白-小@2x.png in Resources */,
 				73DF3EDF248FABEE00A6A032 /* LaunchScreen.storyboard in Resources */,
-				73CF236A24BE93B100B9D8F1 /* 字体-白-小@2x.png in Resources */,
-				73CF237024BE93B100B9D8F1 /* 亮度-白@2x.png in Resources */,
-				73CF237524BF0B9D00B9D8F1 /* slider-黑@2x.png in Resources */,
-				73CF236724BE93B100B9D8F1 /* 目录-白@2x.png in Resources */,
-				73CF236B24BE93B100B9D8F1 /* 字体-黑-小@2x.png in Resources */,
-				73CF236924BE93B100B9D8F1 /* 亮度-黑@2x.png in Resources */,
-				73CF236D24BE93B100B9D8F1 /* 左箭头-黑@2x.png in Resources */,
-				73CF236F24BE93B100B9D8F1 /* 字体-黑-大@2x.png in Resources */,
+				EF558FA924C87831002F43ED /* 左箭头-黑@2x.png in Resources */,
+				EF558FA724C87831002F43ED /* 右箭头-白@2x.png in Resources */,
+				EF558FAF24C87831002F43ED /* 亮度-黑@2x.png in Resources */,
 				738A5D7124BD99B200F140AB /* 黑道特种兵 2.txt in Resources */,
+				EF558FA324C87831002F43ED /* slider-黑@2x.png in Resources */,
 				73DF3EDC248FABEE00A6A032 /* Assets.xcassets in Resources */,
-				73CF236C24BE93B100B9D8F1 /* 左箭头-白@2x.png in Resources */,
+				EF558FAB24C87831002F43ED /* 字体-黑-小@2x.png in Resources */,
 				73DF3EDA248FABE800A6A032 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,16 +260,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				738A5D6524BD965900F140AB /* CDReaderViewController.swift in Sources */,
-				738A5D6D24BD965900F140AB /* CDReaderToolBar.swift in Sources */,
-				738A5D6B24BD965900F140AB /* CDReaderUtilites.swift in Sources */,
-				738A5D6624BD965900F140AB /* CDReaderPageViewController.swift in Sources */,
+				EF558FB124C87831002F43ED /* CDReaderViewController.swift in Sources */,
+				EF558FB324C87831002F43ED /* CDReaderToolBar.swift in Sources */,
+				EF558FB224C87831002F43ED /* CDReaderPageViewController.swift in Sources */,
 				73DF3ED7248FABE800A6A032 /* ViewController.swift in Sources */,
-				738A5D6A24BD965900F140AB /* CDReaderConfig.swift in Sources */,
+				EF558FB424C87831002F43ED /* CDChapterViewController.swift in Sources */,
+				EF558FB524C87831002F43ED /* CDReaderBean.swift in Sources */,
 				73DF3ED3248FABE800A6A032 /* AppDelegate.swift in Sources */,
-				738A5D6824BD965900F140AB /* CDChapterViewController.swift in Sources */,
-				738A5D6924BD965900F140AB /* CDReaderBean.swift in Sources */,
 				73DF3ED5248FABE800A6A032 /* SceneDelegate.swift in Sources */,
+				EF558FB824C87831002F43ED /* CDReaderManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

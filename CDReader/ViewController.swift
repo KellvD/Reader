@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     @objc func onOptionClick(_ sender:UIButton){
         let readVC = CDReaderPageViewController()
         readVC.hidesBottomBarWhenPushed = true
-        readVC.gresource = Bundle.main.path(forResource: "黑道特种兵 2", ofType: "txt")
+        readVC.resource = Bundle.main.path(forResource: "黑道特种兵 2", ofType: "txt")
         self.navigationController?.pushViewController(readVC, animated: true)
     }
 

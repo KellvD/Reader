@@ -13,14 +13,15 @@ protocol CDChapterViewControllerDelegate {
 }
 class CDChapterViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    var readModel:CDReaderModel!
+    private var readModel:CDReaderModel!
     var myDelegate:CDChapterViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        readModel = CDReaderManager.shared.readModel
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.headView)
-        self.tableView.scrollToRow(at: IndexPath(row: readModel.record.chapterIndex, section: 0), at: .middle, animated: false)
+        self.tableView.scrollToRow(at: IndexPath(row: readModel.chapterIndex, section: 0), at: .middle, animated: false)
     }
     
     lazy var tableView: UITableView = {
@@ -33,19 +34,19 @@ class CDChapterViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     lazy var headView: UIView = {
         let head = UIView(frame: CGRect(x: 0, y: 0, width: CDSCREEN_WIDTH, height: 64))
-        head.backgroundColor = CDReaderConfig.shared.theme
+        head.backgroundColor = CDReaderManager.shared.config.theme
         let textNameLabel = UILabel(frame: CGRect(x: 15, y: 15, width: head.frame.width - 15 * 3 - 64, height: 30))
         textNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        textNameLabel.textColor = CDReaderConfig.shared.fontColor
+        textNameLabel.textColor = CDReaderManager.shared.config.fontColor
         textNameLabel.lineBreakMode = .byTruncatingMiddle
         textNameLabel.text = readModel.name
         head.addSubview(textNameLabel)
         
         let processLabel = UILabel(frame: CGRect(x: head.frame.width - 15 - 64, y: 15, width: 64, height: 30))
         processLabel.font = UIFont.boldSystemFont(ofSize: 12)
-        processLabel.textColor = CDReaderConfig.shared.fontColor
+        processLabel.textColor = CDReaderManager.shared.config.fontColor
         processLabel.textAlignment = .right
-        processLabel.text = String(format: "%.0f%%已读", (Float(readModel.record.chapterIndex) / Float(readModel.record.chapterTotalCount)) * 100)
+        processLabel.text = String(format: "%.0f%%已读", (Float(readModel.chapterIndex) / Float(readModel.chaptersArr.count)) * 100)
         head.addSubview(processLabel)
         
         
@@ -81,25 +82,25 @@ class CDChapterViewController: UIViewController,UITableViewDelegate,UITableViewD
             line.tag = 102
             
         }
-        cell.backgroundColor = CDReaderConfig.shared.theme
+        cell.backgroundColor = CDReaderManager.shared.config.theme
         
         let chapterTitlelabel = cell.viewWithTag(100) as! UILabel
         let pageLabel = cell.viewWithTag(101) as! UILabel
         let line = cell.viewWithTag(102)!
         
-        chapterTitlelabel.textColor = CDReaderConfig.shared.fontColor
-        pageLabel.textColor = CDReaderConfig.shared.fontColor
+        chapterTitlelabel.textColor = CDReaderManager.shared.config.fontColor
+        pageLabel.textColor = CDReaderManager.shared.config.fontColor
         
         let model = readModel.chaptersArr[indexPath.row]
         chapterTitlelabel.text = model.title
         pageLabel.text = "\(model.pageCount)"
         line.isHidden = indexPath.row == readModel.chaptersArr.count - 1
-        if indexPath.row == readModel.record.chapterIndex {
-            let color = CDReaderConfig.shared.theme == night ?  nightBorder:
-                CDReaderConfig.shared.theme == day ? dayBorder : eyeBorder
+        if indexPath.row == readModel.chapterIndex {
+            let color = CDReaderManager.shared.config.theme == night ?  nightBorder:
+                CDReaderManager.shared.config.theme == day ? dayBorder : eyeBorder
             chapterTitlelabel.textColor = color
         } else {
-            chapterTitlelabel.textColor = CDReaderConfig.shared.fontColor
+            chapterTitlelabel.textColor = CDReaderManager.shared.config.fontColor
         }
         return cell
     }
